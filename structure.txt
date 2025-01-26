@@ -1,0 +1,19 @@
+src/main/java/com/evangelizacao_back/assistance
+    ├── config
+    │   ├── SecurityConfig.java          // Configuração de segurança (Spring Security)
+    │   └── CorsConfig.java              // Configuração de CORS
+    ├── controller
+    │   └── AssistanceController.java    // Controlador principal
+    ├── dto
+    │   ├── AssistanceRequest.java       // DTO para recebimento de dados
+    │   └── AssistanceResponse.java      // DTO para retorno de dados
+    ├── entity
+    │   ├── Assistance.java              // Entidade principal
+    │   └── Child.java                   // Entidade secundária (filhos)
+    ├── repository
+    │   ├── AssistanceRepository.java    // Repositório da entidade Assistance
+    │   └── ChildRepository.java         // Repositório da entidade Child
+    ├── service
+    │   ├── AssistanceService.java       // Lógica de negócios
+    │   └── ChildService.java            // Lógica relacionada aos filhos
+    └── AssistanceApplication.java       // Classe principal
