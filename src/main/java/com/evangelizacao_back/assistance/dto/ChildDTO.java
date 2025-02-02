@@ -1,5 +1,7 @@
 package com.evangelizacao_back.assistance.dto;
 
+import com.evangelizacao_back.assistance.enumeration.CycleEnum;
+
 import java.time.LocalDate;
 
 public record ChildDTO(

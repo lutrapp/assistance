@@ -1,5 +1,6 @@
 package com.evangelizacao_back.assistance.entity;
 
+import com.evangelizacao_back.assistance.enumeration.CycleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,10 @@ public class Child {
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dob;
+
+    @Column(name = "ciclo")
+    @Enumerated(EnumType.STRING) // Para armazenar o nome do enum no banco
+    private CycleEnum cycle;
 
     @Column(name = "alergias")
     private String allergies;
