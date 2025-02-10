@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="01-create-assistance-table" author="Luciane">
+        <createTable tableName="assistencia">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome_responsavel" type="VARCHAR(255)"/>
+            <column name="telefone_responsavel" type="VARCHAR(20)"/>
+            <column name="nome_mae" type="VARCHAR(255)"/>
+            <column name="telefone_mae" type="VARCHAR(20)"/>
+            <column name="rua" type="VARCHAR(255)"/>
+            <column name="cep" type="VARCHAR(20)"/>
+            <column name="numero" type="VARCHAR(20)"/>
+            <column name="bairro" type="VARCHAR(255)"/>
+            <column name="complemento" type="VARCHAR(255)"/>
+            <column name="cidade" type="VARCHAR(255)"/>
+            <column name="estado" type="VARCHAR(2)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02-create-child-table" author="Luciane">
+        <createTable tableName="crianca">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar(255)"/>
+            <column name="data_nascimento" type="date"/>
+            <column name="ciclo" type="varchar(50)"/>
+            <column name="alergias" type="text"/>
+            <column name="deficiencia_fisica" type="text"/>
+            <column name="doenca" type="text"/>
+            <column name="dificuldade_aprendizado" type="text"/>
+            <column name="medicacao" type="text"/>
+            <column name="comportamento_casa" type="text"/>
+            <column name="comportamento_escola" type="text"/>
+            <column name="alfabetizado" type="boolean"/>
+            <column name="precisa_apoio_escolar" type="boolean"/>
+            <column name="declaracao_vacinacao" type="boolean"/>
+            <column name="saneamento_basico" type="boolean"/>
+            <column name="info_adicional" type="text"/>
+            <column name="assistencia_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_child_assistance" references="assistencia(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
