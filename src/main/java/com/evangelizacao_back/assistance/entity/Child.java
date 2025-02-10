@@ -1,59 +1,56 @@
 package com.evangelizacao_back.assistance.entity;
 
-import com.evangelizacao_back.assistance.enumeration.CycleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "crianca") // Nome da tabela no banco de dados
-@Data
-@Builder
+@Table(name = "crianca") // Nome da tabela no banco
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Child {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_crianca")
     private Long id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", length = 255)
     private String name;
 
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento")
     private LocalDate dob;
 
-    @Column(name = "ciclo")
-    @Enumerated(EnumType.STRING) // Para armazenar o nome do enum no banco
-    private CycleEnum cycle;
+    @Column(name = "ciclo", length = 50)
+    private String cycle;
 
-    @Column(name = "alergias")
+    @Column(name = "alergias", columnDefinition = "TEXT")
     private String allergies;
 
-    @Column(name = "deficiencia_fisica")
+    @Column(name = "deficiencia_fisica", columnDefinition = "TEXT")
     private String physicalDisability;
 
-    @Column(name = "doenca")
+    @Column(name = "doenca", columnDefinition = "TEXT")
     private String disease;
 
-    @Column(name = "dificuldade_aprendizagem")
+    @Column(name = "dificuldade_aprendizado", columnDefinition = "TEXT")
     private String learningDifficulty;
 
-    @Column(name = "medicacao")
+    @Column(name = "medicacao", columnDefinition = "TEXT")
     private String medication;
 
-    @Column(name = "comportamento_casa")
+    @Column(name = "comportamento_casa", columnDefinition = "TEXT")
     private String homeBehavior;
 
-    @Column(name = "comportamento_escola")
+    @Column(name = "comportamento_escola", columnDefinition = "TEXT")
     private String schoolBehavior;
 
     @Column(name = "alfabetizado")
     private boolean literate;
 
-    @Column(name = "necessita_apoio_escolar")
+    @Column(name = "precisa_apoio_escolar")
     private boolean needsSchoolSupport;
 
     @Column(name = "declaracao_vacinacao")
@@ -62,10 +59,11 @@ public class Child {
     @Column(name = "saneamento_basico")
     private boolean basicSanitation;
 
-    @Column(name = "informacoes_adicionais")
+    @Column(name = "info_adicional", columnDefinition = "TEXT")
     private String additionalInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_assistencia") // Chave estrangeira para a tabela assistência
+    // Relacionamento com Assistance
+    @ManyToOne
+    @JoinColumn(name = "assistencia_id", nullable = false)
     private Assistance assistance;
 }

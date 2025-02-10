@@ -2,66 +2,59 @@ package com.evangelizacao_back.assistance.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "assistencia") // Nome da tabela no banco de dados
-@Data
-@Builder
+@Table(name = "assistencia") // Nome da tabela no banco
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Assistance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_assistencia")
     private Long id;
 
-    @Column(name = "nome_responsavel", nullable = false)
-    private String responsibleName;
+    @Column(name = "nome_responsavel", length = 255)
+    private String guardianName;
 
-    @Column(name = "telefone_responsavel", nullable = false)
-    private String responsiblePhone;
+    @Column(name = "telefone_responsavel", length = 20)
+    private String guardianPhone;
 
-    @Column(name = "nome_mae")
+    @Column(name = "nome_mae", length = 255)
     private String motherName;
 
-    @Column(name = "celular_mae")
-    private String motherMobile;
+    @Column(name = "telefone_mae", length = 20)
+    private String motherPhone;
 
-    @Column(name = "rua", nullable = false)
+    @Column(name = "email", length = 255)
+    private String email;
+
+    // Endereço dentro da entidade Assistance
+    @Column(name = "rua", length = 255)
     private String street;
 
-    @Column(name = "cep", nullable = false)
+    @Column(name = "cep", length = 20)
     private String zip;
 
-    @Column(name = "numero", nullable = false)
+    @Column(name = "numero", length = 20)
     private String number;
 
-    @Column(name = "bairro", nullable = false)
+    @Column(name = "bairro", length = 255)
     private String neighborhood;
 
-    @Column(name = "complemento")
+    @Column(name = "complemento", length = 255)
     private String complement;
 
-    @Column(name = "cidade", nullable = false)
+    @Column(name = "cidade", length = 255)
     private String city;
 
-    @Column(name = "estado", nullable = false)
+    @Column(name = "estado", length = 2)
     private String state;
 
-    @OneToMany(mappedBy = "assistance", cascade = CascadeType.ALL, orphanRemoval = true)
+    // Relacionamento com os filhos
+    @OneToMany(mappedBy = "assistance", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Child> children;
-
-    @CreationTimestamp
-    @Column(name = "criado_em", updatable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "atualizado_em")
-    private LocalDateTime updatedAt;
 }
