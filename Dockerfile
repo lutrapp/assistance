@@ -1,14 +1,19 @@
-# Usando imagem base do OpenJDK 21
 FROM eclipse-temurin:21-jdk-alpine
 
-# Configuração do diretório de trabalho
+# Criando um usuário não-root para rodar a aplicação
+RUN addgroup -S spring && adduser -S spring -G spring
+
 WORKDIR /app
 
-# Copiar o arquivo JAR para a imagem
-COPY target/assistances-0.0.1-SNAPSHOT.jar app.jar
+ARG JAR_FILE=target/*.jar
 
-# Expondo a porta 8080
+COPY ${JAR_FILE} app.jar
+
+# Ajustar permissões para o usuário não-root acessar o arquivo
+RUN chown spring:spring app.jar
+
 EXPOSE 8080
 
-# Comando para rodar o Spring Boot
+USER spring
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
