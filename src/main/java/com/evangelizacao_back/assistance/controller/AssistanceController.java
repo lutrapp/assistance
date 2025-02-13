@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class AssistanceController {
 
     private final AssistanceService service;
@@ -35,7 +34,7 @@ public class AssistanceController {
             }
         }
 
-        AssistanceDTO savedDTO = service.save(assistanceDTO); // Passa o DTO diretamente
+        AssistanceDTO savedDTO = service.save(assistanceDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedDTO);
     }
 

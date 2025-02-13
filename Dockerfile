@@ -8,7 +8,7 @@ COPY . /app
 
 RUN mvn clean package
 
-COPY target/assistance-0.0.1-SNAPSHOT.jar app.jar
+COPY target/assistance-1.0.0.jar app.jar
 
 EXPOSE 8000
 

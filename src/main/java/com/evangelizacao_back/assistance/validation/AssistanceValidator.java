@@ -13,8 +13,5 @@ public class AssistanceValidator {
         if (dto.guardianPhone() == null || dto.guardianPhone().isBlank()) {
             throw new IllegalArgumentException("O telefone do responsável é obrigatório.");
         }
-        if (dto.motherName() == null || dto.motherName().isBlank()) {
-            throw new IllegalArgumentException("O nome da mãe é obrigatório.");
-        }
     }
 }
