@@ -2,6 +2,7 @@ package com.evangelizacao_back.assistance.config;
 
 import com.evangelizacao_back.assistance.jwt.JwtAuthenticationFilter;
 import com.evangelizacao_back.assistance.jwt.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,13 +20,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Value("${user.auth}")
-    private String username;
-
-    @Value("${password.auth}")
-    private String password;
+    private final AuthProperties authProperties;
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
@@ -62,11 +60,15 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            if (!username.equals(username)) {
+        return inputUsername -> {
+            if (!inputUsername.equals(authProperties.getUser())) {
                 throw new UsernameNotFoundException("Usuário não encontrado");
             }
-            return new org.springframework.security.core.userdetails.User(username, passwordEncoder().encode(password), java.util.Collections.emptyList());
+            return new org.springframework.security.core.userdetails.User(
+                    authProperties.getUser(),
+                    passwordEncoder().encode(authProperties.getPassword()),
+                    java.util.Collections.emptyList()
+            );
         };
     }
 
