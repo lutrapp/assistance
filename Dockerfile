@@ -1,19 +1,23 @@
+# Usando imagem base do OpenJDK 21
 FROM eclipse-temurin:21-jdk-alpine
 
-# Criando um usuário não-root para rodar a aplicação
-RUN addgroup -S spring && adduser -S spring -G spring
+# Instalando dependências (se necessário)
+RUN apk update && apk add maven
 
+# Configuração do diretório de trabalho
 WORKDIR /app
 
-ARG JAR_FILE=target/*.jar
+# Copiar o repositório para dentro do contêiner
+COPY . /app
 
-COPY ${JAR_FILE} app.jar
+# Rodar o comando para construir o .jar (assumindo que você está usando Maven)
+RUN mvn clean package
 
-# Ajustar permissões para o usuário não-root acessar o arquivo
-RUN chown spring:spring app.jar
+# Copiar o arquivo .jar gerado para dentro da imagem Docker
+COPY target/assistances-0.0.1-SNAPSHOT.jar app.jar
 
+# Expondo a porta 8080
 EXPOSE 8080
 
-USER spring
-
+# Comando para rodar o Spring Boot
 ENTRYPOINT ["java", "-jar", "app.jar"]
